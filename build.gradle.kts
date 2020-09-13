@@ -1,5 +1,6 @@
 plugins {
     id("io.spring.dependency-management")
+    id("java")
 }
 
 subprojects {
@@ -23,5 +24,10 @@ subprojects {
 //                entry("junit-jupiter-engine")
 //            }
         }
+    }
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
