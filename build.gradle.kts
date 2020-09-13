@@ -14,14 +14,14 @@ subprojects {
 
     dependencyManagement {
         val guavaVersion = "29.0-jre"
-        val junitVersion = "5.6.2"
+//        val junitVersion = "5.6.2"
 
         dependencies {
             dependency("com.google.guava:guava:$guavaVersion")
-            dependencySet("org.junit.jupiter:$junitVersion") {
-                entry("junit-jupiter-api")
-                entry("junit-jupiter-engine")
-            }
+//            dependencySet("org.junit.jupiter:$junitVersion") {
+//                entry("junit-jupiter-api")
+//                entry("junit-jupiter-engine")
+//            }
         }
     }
 }

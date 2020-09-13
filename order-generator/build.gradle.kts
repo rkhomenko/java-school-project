@@ -8,12 +8,11 @@ version = "1.0-SNAPSHOT"
 dependencies {
     implementation(project(":core"))
     implementation(group = "com.google.guava", name = "guava")
-
-    // Use JUnit Jupiter API for testing.
-    testImplementation(group = "org.junit.jupiter", name = "junit-jupiter-api")
-
-    // Use JUnit Jupiter Engine for testing.
-    testRuntimeOnly(group = "org.junit.jupiter", name = "junit-jupiter-engine")
+    implementation(group = "org.springframework.boot", name = "spring-boot-starter-data-jpa")
+    implementation(group = "org.springframework.boot", name = "spring-boot-starter-web")
+    compileOnly(group = "org.projectlombok", name = "lombok")
+    annotationProcessor(group = "org.projectlombok", name = "lombok")
+    testImplementation(group = "org.springframework.boot", name = "spring-boot-starter-test")
 }
 
 val test by tasks.getting(Test::class) {
