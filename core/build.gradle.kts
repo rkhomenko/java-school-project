@@ -2,11 +2,10 @@ plugins {
     id("org.springframework.boot") version "2.4.0-SNAPSHOT"
 }
 
-group = "org.khomenko.project.order.generator"
+group = "org.khomenko.project.core"
 version = "1.0-SNAPSHOT"
 
 dependencies {
-    implementation(project(":core"))
     implementation(group = "com.google.guava", name = "guava")
 
     // Use JUnit Jupiter API for testing.

@@ -2,7 +2,6 @@ pluginManagement {
     repositories {
         maven { url = uri("https://repo.spring.io/milestone") }
         maven { url = uri("https://repo.spring.io/snapshot") }
-        //maven { url = uri("https://repo.spring.io/plugins-snapshot") }
         gradlePluginPortal()
     }
 
@@ -19,4 +18,5 @@ pluginManagement {
     }
 }
 
+include("core")
 include("order-generator")
