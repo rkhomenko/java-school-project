@@ -20,6 +20,10 @@ val test by tasks.getting(Test::class) {
 }
 
 tasks {
+    bootJar {
+        enabled = false;
+    }
+
     jar {
         enabled = true
     }

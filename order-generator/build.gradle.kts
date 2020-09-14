@@ -8,9 +8,10 @@ version = "1.0-SNAPSHOT"
 dependencies {
     implementation(project(":core"))
     implementation(group = "com.google.guava", name = "guava")
-    //implementation(group = "org.springframework.boot", name = "spring-boot-starter-data-jpa")
+    implementation(group = "org.springframework.boot", name = "spring-boot-starter-data-jpa")
     implementation(group = "org.springframework.boot", name = "spring-boot-starter-web")
     compileOnly(group = "org.projectlombok", name = "lombok")
+    runtimeOnly(group = "com.h2database", name = "h2")
     annotationProcessor(group = "org.projectlombok", name = "lombok")
     testImplementation(group = "org.springframework.boot", name = "spring-boot-starter-test")
 }
