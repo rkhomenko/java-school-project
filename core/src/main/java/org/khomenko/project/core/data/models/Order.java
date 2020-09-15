@@ -10,30 +10,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "orders")
 
 @Getter
 @ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Customer {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ManyToOne
     @NonNull
-    private String firstName;
+    private Customer customer;
 
+    @OneToMany
     @NonNull
-    private String lastName;
-
-    @NonNull
-    private Integer meanOrderItemsCount;
-
-    @NonNull
-    private PriceCategory preferredPriceCategory;
+    private List<Product> products;
 }
-

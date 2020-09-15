@@ -13,27 +13,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "products")
 
 @Getter
 @ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Customer {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NonNull
-    private String firstName;
+    private String name;
 
     @NonNull
-    private String lastName;
+    private Integer price;
 
     @NonNull
-    private Integer meanOrderItemsCount;
-
-    @NonNull
-    private PriceCategory preferredPriceCategory;
+    private PriceCategory priceCategory;
 }
-
