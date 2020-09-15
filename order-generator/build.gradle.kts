@@ -10,6 +10,7 @@ dependencies {
     implementation(group = "com.google.guava", name = "guava")
     implementation(group = "org.springframework.boot", name = "spring-boot-starter-data-jpa")
     implementation(group = "org.springframework.boot", name = "spring-boot-starter-web")
+    implementation(group = "com.github.javafaker", name = "javafaker")
     compileOnly(group = "org.projectlombok", name = "lombok")
     runtimeOnly(group = "com.h2database", name = "h2")
     annotationProcessor(group = "org.projectlombok", name = "lombok")

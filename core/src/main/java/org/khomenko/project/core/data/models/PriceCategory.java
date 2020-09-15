@@ -5,11 +5,11 @@ public enum PriceCategory {
     MEDIUM(50, 100),
     HIGH(100, 1000);
 
-    public final int min;
-    public final int max;
+    public final int minCost;
+    public final int maxCost;
 
-    private PriceCategory(int min, int max) {
-        this.min = min;
-        this.max = max;
+    private PriceCategory(int minCost, int maxCost) {
+        this.minCost = minCost;
+        this.maxCost = maxCost;
     }
 }

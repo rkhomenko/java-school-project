@@ -16,6 +16,7 @@ subprojects {
     dependencyManagement {
         val guavaVersion = "29.0-jre"
 //        val junitVersion = "5.6.2"
+        val javaFakerVersion = "1.0.2"
 
         dependencies {
             dependency("com.google.guava:guava:$guavaVersion")
@@ -23,6 +24,7 @@ subprojects {
 //                entry("junit-jupiter-api")
 //                entry("junit-jupiter-engine")
 //            }
+            dependency("com.github.javafaker:javafaker:$javaFakerVersion")
         }
     }
 

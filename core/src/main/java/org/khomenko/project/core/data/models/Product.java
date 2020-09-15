@@ -1,5 +1,7 @@
 package org.khomenko.project.core.data.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -19,6 +21,8 @@ import javax.persistence.Table;
 @ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,4 +36,7 @@ public class Product {
 
     @NonNull
     private PriceCategory priceCategory;
+
+    @NonNull
+    private ProductCategory productCategory;
 }
