@@ -7,12 +7,15 @@ import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+
 import org.khomenko.project.core.data.models.Customer;
 import org.khomenko.project.core.data.models.Order;
 import org.khomenko.project.core.data.models.Product;
+import org.khomenko.project.order.generator.generators.OrderGenerator;
 import org.khomenko.project.order.generator.init.DatabaseIniter;
-
+import org.khomenko.project.order.generator.producers.KafkaOrderProducer;
 import org.khomenko.project.order.generator.producers.OrderProducer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -23,33 +26,35 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
         "org.khomenko.project.order.generator.init",
-        "org.khomenko.project.order.generator.producers"
+        "org.khomenko.project.order.generator.producers",
+        "org.khomenko.project.order.generator.generators"
 })
 @EntityScan("org.khomenko.project.core.data.models")
 @EnableJpaRepositories("org.khomenko.project.core.data.repositories")
-@Slf4j
+@EnableScheduling
+@EnableKafka
 public class Application implements ApplicationRunner {
-    @Value(value = "${kafka.bootstrapAddress}")
+    @Value(value = "${my.kafka.bootstrapAddress}")
     private String bootstrapAddress;
+
+    @Value(value = "${my.kafka.topicName}")
+    private String topicName;
 
     @Autowired
     private DatabaseIniter databaseIniter;
-
-    @Autowired
-    private OrderProducer orderProducer;
 
     @Bean
     Faker javaFaker() {
@@ -65,7 +70,7 @@ public class Application implements ApplicationRunner {
 
     @Bean
     NewTopic orderGeneratorTopic() {
-        return new NewTopic("orders", 1, (short) 1);
+        return new NewTopic(topicName, 1, (short) 1);
     }
 
     @Bean
@@ -84,8 +89,8 @@ public class Application implements ApplicationRunner {
     }
 
     @Bean
-    public KafkaTemplate<String, Order> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
+    public KafkaTemplate<String, Order> kafkaTemplate(ProducerFactory<String, Order> producerFactory) {
+        return new KafkaTemplate<>(producerFactory);
     }
 
     public static void main(String[] args) {
@@ -97,11 +102,5 @@ public class Application implements ApplicationRunner {
         if (args.containsOption("init")) {
             databaseIniter.init();
         }
-
-        Order order = Order.builder()
-                .customer(Customer.builder().build())
-                .products(List.of(Product.builder().name("product").build()))
-                .build();
-        orderProducer.produce(order);
     }
 }
