@@ -1,20 +1,13 @@
 package org.khomenko.project.order.generator.main;
 
 import com.github.javafaker.Faker;
-import lombok.extern.slf4j.Slf4j;
 
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 
-import org.khomenko.project.core.data.models.Customer;
-import org.khomenko.project.core.data.models.Order;
-import org.khomenko.project.core.data.models.Product;
-import org.khomenko.project.order.generator.generators.OrderGenerator;
 import org.khomenko.project.order.generator.init.DatabaseIniter;
-import org.khomenko.project.order.generator.producers.KafkaOrderProducer;
-import org.khomenko.project.order.generator.producers.OrderProducer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,6 +46,9 @@ public class Application implements ApplicationRunner {
     @Value(value = "${my.kafka.topicName}")
     private String topicName;
 
+    @Value(value = "${my.kafka.compressionType}")
+    private String compressionType;
+
     @Autowired
     private DatabaseIniter databaseIniter;
 
@@ -74,22 +70,21 @@ public class Application implements ApplicationRunner {
     }
 
     @Bean
-    public ProducerFactory<String, Order> producerFactory() {
+    public ProducerFactory<String, String> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
-        configProps.put(
-                ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
+        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
                 bootstrapAddress);
-        configProps.put(
-                ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
+        configProps.put(ProducerConfig.COMPRESSION_TYPE_CONFIG,
+                compressionType);
+        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);
-        configProps.put(
-                ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
+        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
     @Bean
-    public KafkaTemplate<String, Order> kafkaTemplate(ProducerFactory<String, Order> producerFactory) {
+    public KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory) {
         return new KafkaTemplate<>(producerFactory);
     }
 

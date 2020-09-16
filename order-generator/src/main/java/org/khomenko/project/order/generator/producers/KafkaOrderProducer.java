@@ -1,9 +1,11 @@
 package org.khomenko.project.order.generator.producers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.khomenko.project.core.data.models.Order;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ public class KafkaOrderProducer implements OrderProducer {
     private final String topicName;
 
     @Autowired
-    private KafkaTemplate<String, Order> kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
     public KafkaOrderProducer(@Value("${my.kafka.topicName}") final String topicName) {
@@ -24,7 +26,9 @@ public class KafkaOrderProducer implements OrderProducer {
     }
 
     @Override
+    @SneakyThrows
     public void produce(Order order) {
-        kafkaTemplate.send(topicName, order);
+        ObjectMapper objectMapper = new ObjectMapper();
+        kafkaTemplate.send(topicName, objectMapper.writeValueAsString(order));
     }
 }

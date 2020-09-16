@@ -11,5 +11,6 @@ spring:
 
 my:
   kafka:
+    compressionType: zstd
     topicName: orders
     bootstrapAddress: localhost:9092

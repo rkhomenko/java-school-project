@@ -8,6 +8,7 @@ version = "1.0-SNAPSHOT"
 dependencies {
     implementation(project(":core"))
     implementation(group = "com.google.guava", name = "guava")
+    implementation(group = "com.fasterxml.jackson.core", name = "jackson-databind")
     implementation(group = "org.springframework.boot", name = "spring-boot-starter-data-jpa")
     implementation(group = "org.springframework.kafka", name = "spring-kafka")
     implementation(group = "com.github.javafaker", name = "javafaker")

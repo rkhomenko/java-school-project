@@ -8,7 +8,9 @@ version = "1.0-SNAPSHOT"
 
 dependencies {
     implementation(group = "com.google.guava", name = "guava")
+    implementation(group = "com.fasterxml.jackson.core", name = "jackson-databind")
     implementation(group = "org.springframework.boot", name = "spring-boot-starter-data-jpa")
+    implementation(group = "org.springframework.kafka", name = "spring-kafka")
     compileOnly(group = "org.projectlombok", name = "lombok")
     annotationProcessor(group = "org.projectlombok", name = "lombok")
     testImplementation(group = "org.springframework.boot", name = "spring-boot-starter-test")
