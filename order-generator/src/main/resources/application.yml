@@ -8,3 +8,7 @@ spring:
     username: user
     password: password
     driverClassName: org.h2.Driver
+
+kafka:
+  topicName: orders
+  bootstrapAddress: localhost:2181

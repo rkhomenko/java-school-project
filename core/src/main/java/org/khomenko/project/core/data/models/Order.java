@@ -1,5 +1,7 @@
 package org.khomenko.project.core.data.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -22,6 +24,8 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
