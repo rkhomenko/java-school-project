@@ -1,10 +1,6 @@
 package org.khomenko.project.order.generator.producers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.khomenko.project.core.data.models.Order;
 
