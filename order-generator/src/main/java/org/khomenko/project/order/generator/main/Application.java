@@ -24,7 +24,6 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +36,6 @@ import java.util.Map;
 })
 @EntityScan("org.khomenko.project.core.data.models")
 @EnableJpaRepositories("org.khomenko.project.core.data.repositories")
-@EnableScheduling
 @EnableKafka
 public class Application implements ApplicationRunner {
     @Value(value = "${my.kafka.bootstrapAddress}")
