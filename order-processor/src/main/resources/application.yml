@@ -1,0 +1,9 @@
+my:
+  kafka:
+    compressionType: zstd
+    topicNames: orders
+    bootstrapAddress: localhost:9092
+
+  spark:
+    appName: order-processo
+    master: localhost:8080

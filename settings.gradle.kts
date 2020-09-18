@@ -20,3 +20,4 @@ pluginManagement {
 
 include("core")
 include("order-generator")
+include("order-processor")
