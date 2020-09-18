@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.spark.SparkConf;
-import org.apache.spark.streaming.Duration;
 import org.apache.spark.streaming.Durations;
 import org.apache.spark.streaming.api.java.JavaInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
@@ -12,12 +11,15 @@ import org.apache.spark.streaming.kafka010.ConsumerStrategies;
 import org.apache.spark.streaming.kafka010.ConsumerStrategy;
 import org.apache.spark.streaming.kafka010.KafkaUtils;
 import org.apache.spark.streaming.kafka010.LocationStrategies;
+import org.khomenko.project.order.processor.processors.Processor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +27,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootApplication
+@ComponentScan(basePackages = {
+        "org.khomenko.project.order.processor.processors"
+})
 @Slf4j
 public class Application implements ApplicationRunner {
     @Value("${my.kafka.bootstrapAddress}")
@@ -35,6 +40,9 @@ public class Application implements ApplicationRunner {
 
     @Value("${my.spark.master}")
     private String sparkMasterUrl;
+
+    @Autowired
+    private Processor orderProcessor;
 
     @Bean
     SparkConf sparkConf(@Value("${my.spark.appName}") final String appName) {
@@ -76,5 +84,7 @@ public class Application implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         log.info("Started");
+
+        orderProcessor.process();
     }
 }
