@@ -1,9 +1,0 @@
-my:
-  kafka:
-    compressionType: zstd
-    topicNames: orders
-    bootstrapAddress: localhost:9092
-
-  spark:
-    appName: order-processor
-    master: spark://rk-ws-3:7077
