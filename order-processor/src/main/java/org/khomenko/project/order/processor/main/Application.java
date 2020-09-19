@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import scala.Tuple2;
 
 import org.apache.spark.api.java.JavaPairRDD;
@@ -11,12 +14,13 @@ import org.apache.spark.api.java.JavaRDD;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 //@SpringBootApplication
 //@ComponentScan(basePackages = {
 //        "org.khomenko.project.order.processor.processors"
 //})
+
+@Configuration
 @Slf4j
 public class Application {
 //    @Value("${my.kafka.bootstrapAddress}")
@@ -65,6 +69,8 @@ public class Application {
 //    }
 
     public static void main(String[] args) {
+        ApplicationContext context = new AnnotationConfigApplicationContext(Application.class);
+
         log.info("Kek");
 
         SparkConf sparkConf = new SparkConf().setAppName("order-processor");

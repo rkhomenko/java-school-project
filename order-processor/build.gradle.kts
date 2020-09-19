@@ -16,6 +16,7 @@ dependencies {
     implementation(group = "com.google.guava", name = "guava")
     implementation(group = "com.fasterxml.jackson.core", name = "jackson-databind", version = "2.11.2")
     implementation(group = "org.slf4j", name = "slf4j-log4j12", version = "1.7.30")
+    implementation(group = "org.springframework", name = "spring-context", version = "5.2.9.RELEASE")
     compileOnly(group = "org.apache.spark", name = "spark-core_2.12")
     compileOnly(group = "org.apache.spark", name = "spark-streaming_2.12")
     compileOnly(group = "org.apache.spark", name = "spark-streaming-kafka-0-10_2.12")
@@ -28,10 +29,7 @@ val jar by tasks.getting(Jar::class) {
         attributes["Main-Class"] = "org.khomenko.project.order.processor.main.Application"
     }
 
-    from(configurations
-            .runtime
-             .get()
-             .files
+    from(configurations.runtimeClasspath.get().files
             .map { if (it.isDirectory) it else zipTree(it) })
 }
 
