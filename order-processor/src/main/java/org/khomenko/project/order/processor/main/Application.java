@@ -42,6 +42,9 @@ public class Application {
     @Value("${my.kafka.topicName}")
     private String topicName;
 
+    @Value("${my.kafka.groupId}")
+    private String groupId;
+
     @Autowired
     private Processor orderProcessor;
 
@@ -63,7 +66,7 @@ public class Application {
         kafkaParams.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         kafkaParams.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         kafkaParams.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        //kafkaParams.put("group.id", "use_a_separate_group_id_for_each_stream");
+        kafkaParams.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         kafkaParams.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
         kafkaParams.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
         return ConsumerStrategies.Subscribe(new ArrayList<>(Collections.singletonList(topicName)), kafkaParams);
