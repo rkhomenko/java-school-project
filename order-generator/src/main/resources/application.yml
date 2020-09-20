@@ -14,5 +14,5 @@ my:
     compressionType: zstd
     topicName: orders
     bootstrapAddress: localhost:9092
-  generator:
+  multiThreadScheduled:
     threads: 4

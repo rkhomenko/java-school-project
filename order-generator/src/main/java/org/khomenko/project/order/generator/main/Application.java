@@ -32,7 +32,10 @@ import java.util.Map;
 @ComponentScan(basePackages = {
         "org.khomenko.project.order.generator.init",
         "org.khomenko.project.order.generator.producers",
-        "org.khomenko.project.order.generator.generators"
+        "org.khomenko.project.order.generator.generators",
+        "org.khomenko.project.core.util.bpp",
+        "org.khomenko.project.core.util.listeners",
+        "org.khomenko.project.core.util.internal",
 })
 @EntityScan("org.khomenko.project.core.data.models")
 @EnableJpaRepositories("org.khomenko.project.core.data.repositories")
