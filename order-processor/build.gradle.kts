@@ -1,7 +1,3 @@
-//plugins {
-//    id("org.springframework.boot") version "2.4.0-SNAPSHOT"
-//}
-
 group = "org.khomenko.project.order.generator"
 version = "1.0-SNAPSHOT"
 
@@ -12,7 +8,7 @@ configurations {
 }
 
 dependencies {
-//    implementation(project(":core"))
+    implementation(project(":core"))
     implementation(group = "com.google.guava", name = "guava")
     implementation(group = "com.fasterxml.jackson.core", name = "jackson-databind", version = "2.11.2")
     implementation(group = "org.slf4j", name = "slf4j-log4j12", version = "1.7.30")
@@ -20,6 +16,7 @@ dependencies {
     compileOnly(group = "org.apache.spark", name = "spark-core_2.12")
     compileOnly(group = "org.apache.spark", name = "spark-streaming_2.12")
     compileOnly(group = "org.apache.spark", name = "spark-streaming-kafka-0-10_2.12")
+    compileOnly(group = "org.apache.spark", name = "spark-sql_2.12")
     compileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.12")
     annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.12")
 }

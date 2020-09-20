@@ -29,6 +29,7 @@ subprojects {
             dependency("org.apache.spark:spark-core_2.12:$sparkVersion")
             dependency("org.apache.spark:spark-streaming_2.12:$sparkVersion")
             dependency("org.apache.spark:spark-streaming-kafka-0-10_2.12:$sparkVersion")
+            dependency("org.apache.spark:spark-sql_2.12:$sparkVersion")
         }
     }
 

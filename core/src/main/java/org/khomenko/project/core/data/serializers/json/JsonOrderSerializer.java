@@ -7,6 +7,9 @@ import org.khomenko.project.core.data.models.Order;
 import org.khomenko.project.core.data.models.Product;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.ZonedDateTime;
 
 public class JsonOrderSerializer extends StdSerializer<Order> {
     public JsonOrderSerializer() {
@@ -28,7 +31,10 @@ public class JsonOrderSerializer extends StdSerializer<Order> {
         gen.writeNumberField(JsonOrderFieldNames.ID, order.getId());
         gen.writeNumberField(JsonOrderFieldNames.CUSTOMER_ID, order.getCustomer().getId());
         gen.writeNumberField(JsonOrderFieldNames.AMOUNT, order.getAmount());
-        gen.writeStringField(JsonOrderFieldNames.ORDER_DATE_TIME, order.getOrderDate().toString());
+
+        ZonedDateTime zonedDateTime = order.getOrderDate();
+        gen.writeStringField(JsonOrderFieldNames.ORDER_DATE, Date.valueOf(zonedDateTime.toLocalDate()).toString());
+        gen.writeStringField(JsonOrderFieldNames.ORDER_TIME, Time.valueOf(zonedDateTime.toLocalTime()).toString());
 
         gen.writeFieldName(JsonOrderFieldNames.PRODUCTS);
         gen.writeArray(products, 0, products.length);
