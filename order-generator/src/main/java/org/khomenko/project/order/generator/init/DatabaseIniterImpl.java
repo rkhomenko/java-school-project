@@ -13,8 +13,10 @@ import org.khomenko.project.core.data.repositories.ProductRepository;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
+@ConditionalOnProperty(value = "my.generation", havingValue = "false")
 @Slf4j
 public class DatabaseIniterImpl implements DatabaseIniter {
     private static final int CUSTOMERS_COUNT = 10000;
@@ -40,6 +43,7 @@ public class DatabaseIniterImpl implements DatabaseIniter {
     private Faker faker;
 
     @Override
+    @PostConstruct
     @Transactional
     public void init() {
         log.info("Database init started");

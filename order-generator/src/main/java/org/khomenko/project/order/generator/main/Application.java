@@ -7,9 +7,6 @@ import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 
-import org.khomenko.project.order.generator.init.DatabaseIniter;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -49,9 +46,6 @@ public class Application implements ApplicationRunner {
 
     @Value(value = "${my.kafka.compressionType}")
     private String compressionType;
-
-    @Autowired
-    private DatabaseIniter databaseIniter;
 
     @Bean
     Faker javaFaker() {
@@ -95,8 +89,5 @@ public class Application implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        if (args.containsOption("init")) {
-            databaseIniter.init();
-        }
     }
 }
