@@ -89,7 +89,7 @@ public class MultiThreadOrderGenerator implements OrderGenerator {
     @Override
     @Transactional
     @MultiThreadScheduled(threads = 4,
-            initDelay = 5000,
+            initDelay = 200,
             initDelayVar = 100,
             period = 300,
             periodVar = 100
@@ -107,6 +107,10 @@ public class MultiThreadOrderGenerator implements OrderGenerator {
                 .customer(customer)
                 .orderDate(ZonedDateTime.now())
                 .products(products)
+                .amount(products.stream()
+                        .mapToInt(Product::getPrice)
+                        .reduce(Integer::sum)
+                        .orElseThrow())
                 .build();
 
         orderRepository.save(order);

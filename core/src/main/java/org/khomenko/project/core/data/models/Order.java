@@ -46,4 +46,7 @@ public class Order {
     @ManyToMany
     @NonNull
     private List<Product> products;
+
+    @NonNull
+    Integer amount;
 }

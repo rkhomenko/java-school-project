@@ -13,7 +13,7 @@ dependencies {
     implementation(group = "org.springframework.kafka", name = "spring-kafka")
     implementation(group = "com.github.javafaker", name = "javafaker")
     compileOnly(group = "org.projectlombok", name = "lombok")
-    runtimeOnly(group = "com.h2database", name = "h2")
+    runtimeOnly(group = "org.postgresql", name = "postgresql")
     annotationProcessor(group = "org.projectlombok", name = "lombok")
     testImplementation(group = "org.springframework.boot", name = "spring-boot-starter-test")
 }
