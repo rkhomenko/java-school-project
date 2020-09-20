@@ -34,16 +34,6 @@ public class OrderProcessor implements Processor {
     public void process() {
         log.info("Order processor started");
 
-//        JavaRDD<String> inputFile = streamingContext.sparkContext().textFile("/home/rk/source/java-school-project/file.txt");
-//        JavaRDD<String> words = inputFile.flatMap(content -> Arrays.asList(content.split(" ")).iterator());
-//        JavaPairRDD<String, Integer> ones = words.mapToPair(s -> new Tuple2<>(s, 1));
-//        JavaPairRDD<String, Integer> counts = ones.reduceByKey(Integer::sum);
-//
-//        List<Tuple2<String, Integer>> output = counts.collect();
-//        for (Tuple2<?, ?> tuple : output) {
-//            System.out.println(tuple._1() + ": " + tuple._2());
-//        }
-
         JavaPairDStream<Long, String> results = orders
                 .mapToPair(
                         record -> new Tuple2<>(record.key(), record.value())

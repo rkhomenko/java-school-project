@@ -25,11 +25,12 @@ public class JsonOrderSerializer extends StdSerializer<Order> {
 
         gen.writeStartObject();
 
-        gen.writeNumberField("id", order.getId());
-        gen.writeNumberField("customerId", order.getCustomer().getId());
-        gen.writeStringField("orderDateTime", order.getOrderDate().toString());
+        gen.writeNumberField(JsonOrderFieldNames.ID, order.getId());
+        gen.writeNumberField(JsonOrderFieldNames.CUSTOMER_ID, order.getCustomer().getId());
+        gen.writeNumberField(JsonOrderFieldNames.AMOUNT, order.getAmount());
+        gen.writeStringField(JsonOrderFieldNames.ORDER_DATE_TIME, order.getOrderDate().toString());
 
-        gen.writeFieldName("products");
+        gen.writeFieldName(JsonOrderFieldNames.PRODUCTS);
         gen.writeArray(products, 0, products.length);
 
         gen.writeEndObject();

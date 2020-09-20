@@ -1,5 +1,4 @@
 plugins {
-    id("org.springframework.boot") version "2.4.0-SNAPSHOT"
     id("java-library")
 }
 
@@ -8,12 +7,12 @@ version = "1.0-SNAPSHOT"
 
 dependencies {
     implementation(group = "com.google.guava", name = "guava")
-    implementation(group = "com.fasterxml.jackson.core", name = "jackson-databind")
-    implementation(group = "org.springframework.boot", name = "spring-boot-starter-data-jpa")
-    implementation(group = "org.springframework.kafka", name = "spring-kafka")
-    compileOnly(group = "org.projectlombok", name = "lombok")
-    annotationProcessor(group = "org.projectlombok", name = "lombok")
-    testImplementation(group = "org.springframework.boot", name = "spring-boot-starter-test")
+    implementation(group = "com.fasterxml.jackson.core", name = "jackson-databind", version = "2.11.2")
+    implementation(group = "org.springframework", name = "spring-context", version = "5.2.9.RELEASE")
+    implementation(group = "org.springframework.data", name = "spring-data-jpa", version = "2.3.4.RELEASE")
+    compileOnly(group = "javax.persistence", name = "javax.persistence-api", version = "2.2")
+    compileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.12")
+    annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.12")
 }
 
 val test by tasks.getting(Test::class) {
@@ -22,10 +21,6 @@ val test by tasks.getting(Test::class) {
 }
 
 tasks {
-    bootJar {
-        enabled = false;
-    }
-
     jar {
         enabled = true
     }

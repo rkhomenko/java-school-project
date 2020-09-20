@@ -109,8 +109,7 @@ public class MultiThreadOrderGenerator implements OrderGenerator {
                 .products(products)
                 .amount(products.stream()
                         .mapToInt(Product::getPrice)
-                        .reduce(Integer::sum)
-                        .orElseThrow())
+                        .sum())
                 .build();
 
         orderRepository.save(order);
