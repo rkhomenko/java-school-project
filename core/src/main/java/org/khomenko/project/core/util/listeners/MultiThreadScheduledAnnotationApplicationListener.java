@@ -1,10 +1,10 @@
 package org.khomenko.project.core.util.listeners;
 
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 
 import org.khomenko.project.core.util.annotations.EnableMultiThreadScheduled;
 import org.khomenko.project.core.util.annotations.MultiThreadScheduled;
+import org.khomenko.project.core.util.internal.MultiThreadScheduledAnnotationData;
 import org.khomenko.project.core.util.internal.ScheduledTaskContainer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@Slf4j
 public class MultiThreadScheduledAnnotationApplicationListener {
     @Autowired
     ScheduledTaskContainer scheduledTaskContainer;
@@ -34,18 +33,19 @@ public class MultiThreadScheduledAnnotationApplicationListener {
         BeanDefinition beanDefinition = beanFactory.getBeanDefinition(beanName);
         Class<?> clazz = beanFactory.getBeanClassLoader().loadClass(beanDefinition.getBeanClassName());
 
-        Map<String, MultiThreadScheduled> annotatedMethods = new HashMap<>();
+        Map<String, MultiThreadScheduledAnnotationData> annotatedMethods = new HashMap<>();
         for (Method method : clazz.getDeclaredMethods()) {
             if (method.isAnnotationPresent(MultiThreadScheduled.class)) {
-                annotatedMethods.put(method.getName(), method.getAnnotation(MultiThreadScheduled.class));
+                MultiThreadScheduled annotation = method.getAnnotation(MultiThreadScheduled.class);
+                annotatedMethods.put(method.getName(), MultiThreadScheduledAnnotationData.of(annotation));
             }
         }
 
-        for (Map.Entry<String, MultiThreadScheduled> entry : annotatedMethods.entrySet()) {
+        for (Map.Entry<String, MultiThreadScheduledAnnotationData> entry : annotatedMethods.entrySet()) {
             Method method = bean.getClass().getMethod(entry.getKey());
 
-            MultiThreadScheduled annotation = entry.getValue();
-            for (int i = 0; i < annotation.threads(); i++) {
+            MultiThreadScheduledAnnotationData annotationData = entry.getValue();
+            for (int i = 0; i < annotationData.getThreads(); i++) {
                 scheduledTaskContainer.add(bean, () -> {
                     try {
                         method.invoke(bean);
@@ -54,7 +54,7 @@ public class MultiThreadScheduledAnnotationApplicationListener {
                     } catch (InvocationTargetException e) {
                         e.printStackTrace();
                     }
-                }, annotation.initDelay(), annotation.period(), annotation.unit());
+                }, annotationData.getInitDelay(), annotationData.getPeriod(), annotationData.getUnit());
             }
         }
     }

@@ -33,11 +33,14 @@ public class MultiThreadOrderGenerator implements OrderGenerator {
 
     @Override
     @Transactional
-    @MultiThreadScheduled(threads = 4, initDelay = 200, period = 300)
+    @MultiThreadScheduled(threads = 4,
+            initDelay = 200,
+            initDelayVar = 100,
+            period = 300,
+            periodVar = 100
+    )
     @SneakyThrows
     public void generate() {
-        log.info("MultiThreadOrderGenerator started. {}", Thread.currentThread().getName());
-
         Order order = Order.builder()
                 .id(ThreadLocalRandom.current().nextLong())
                 .customer(Customer.builder()

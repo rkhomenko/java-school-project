@@ -10,7 +10,9 @@ import java.util.concurrent.TimeUnit;
 @Target(ElementType.METHOD)
 public @interface MultiThreadScheduled {
     int threads() default 1;
-    int initDelay();
-    int period();
+    int initDelay() default -1;
+    int period() default -1;
+    int initDelayVar() default 0;
+    int periodVar() default 0;
     TimeUnit unit() default TimeUnit.MILLISECONDS;
 }
