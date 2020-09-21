@@ -63,7 +63,6 @@ public class OrderProcessor implements Processor {
                     "mean(products_count) as mean_products_count," +
                     "count(id) as orders_count" +
                     " from orders_view");
-            amount.show();
 
             amount.write()
                     .mode(SaveMode.Append)
