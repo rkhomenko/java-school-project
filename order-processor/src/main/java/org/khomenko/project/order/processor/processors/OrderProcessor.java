@@ -54,8 +54,6 @@ public class OrderProcessor implements Processor {
             ordersDataset = ordersDataset.withColumn("products_count", size(ordersDataset.col(JsonOrderFieldNames.PRODUCTS)));
             ordersDataset.createOrReplaceTempView("orders_view");
 
-            ordersDataset.show(10);
-
             Dataset<Row> amount = spark.sql("select now() as time, sum(amount) as total_amount," +
                     "mean(amount) as mean_amount," +
                     "min(amount) as min_amount," +
